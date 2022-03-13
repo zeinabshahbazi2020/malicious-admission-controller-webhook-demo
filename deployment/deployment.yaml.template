@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: webhook-server
-  namespace: webhook-demo
+  namespace: ricxapp
   labels:
     app: webhook-server
 spec:
@@ -23,7 +23,7 @@ spec:
         image: rewanthtammana/admission-controller-webhook-demo:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8443
+        - containerPort: 8444
           name: webhook-api
         volumeMounts:
         - name: webhook-tls-certs
@@ -38,12 +38,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: webhook-server
-  namespace: webhook-demo
+  namespace: ricxapp
 spec:
   selector:
     app: webhook-server
   ports:
-    - port: 443
+    - port: 444
       targetPort: webhook-api
 ---
 apiVersion: admissionregistration.k8s.io/v1beta1
@@ -55,7 +55,7 @@ webhooks:
     clientConfig:
       service:
         name: webhook-server
-        namespace: webhook-demo
+        namespace:ricxapp
         path: "/mutate"
       caBundle: ${CA_PEM_B64}
     rules:
