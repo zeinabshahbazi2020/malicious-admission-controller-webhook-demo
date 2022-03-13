@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: webhook-server
-  namespace: webhook-demo
+  namespace: ricxapp
   labels:
     app: webhook-server
 spec:
